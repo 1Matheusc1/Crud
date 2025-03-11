@@ -1,13 +1,15 @@
 /* Variáveis CSS para facilitar personalizações */
 :root {
-  --cor-primaria: #005f99; /* Azul */
-  --cor-secundaria: #00db42d0; /* Verde mais claro */
-  --cor-fundo: #95b8eb; /* Fundo suave azul */
-  --cor-texto: #333;
-  --cor-error: #e74c3c; /* Vermelho */
+  --cor-primaria: #005f99; /* Azul profundo */
+  --cor-secundaria: #00db42d0; /* Verde suave */
+  --cor-fundo: #81adee; /* Fundo claro e neutro */
+  --cor-preto: #fff7f7; /* Fundo do chat */
+  --cor-texto: #000000; /* Texto preto */
+  --cor-error: #e74c3c; /* Vermelho de erro */
   --cor-branco: #fff;
-  --box-shadow: rgba(0, 0, 0, 0.1);
+  --box-shadow: rgba(0, 0, 0, 0.2);
   --border-radius: 12px;
+  --cor-sombra: rgba(0, 0, 0, 0.1); /* Sombra mais sutil */
 }
 
 /* Resetando margens e preenchimentos */
@@ -195,7 +197,6 @@ input[type="submit"]:active {
 }
 
 /* Estilos do Chat */
-/* Estilos do Chat */
 /* Estilo para o botão de chat flutuante */
 .chat-btn {
   position: fixed;
@@ -209,62 +210,72 @@ input[type="submit"]:active {
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   z-index: 1001;
 }
 
 .chat-btn:hover {
   background-color: var(--cor-secundaria);
-  transform: translateY(-2px);
+  transform: translateY(-5px);
 }
 
 .chat-btn:active {
   transform: translateY(2px);
 }
 
-/* Caixa de chat */
+/* Caixa de Chat */
 .chat-box {
   position: fixed;
-  bottom: 70px; /* Um pouco acima do botão */
+  bottom: 80px;
   right: 20px;
-  width: 350px;
-  max-width: 400px;
-  background-color: var(--cor-branco);
-  border-radius: 12px;
-  padding: 20px;
-  display: none; /* Inicialmente escondido */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  overflow-y: auto;
-  max-height: 400px;
+  width: 450px;
+  background-color: var(--cor-preto);
+  border-radius: var(--border-radius);
+  padding: 25px;
+  display: none;
+  box-shadow: 0 6px 25px var(--box-shadow);
   z-index: 1000;
-  transition: all 0.3s ease-in-out;
-  animation: slideIn 0.5s ease-out; /* Animação de deslizar */
+  transition: all 0.4s ease-in-out;
+  animation: slideIn 0.5s ease-out;
 }
 
-/* Animação de entrada do chat */
-@keyframes slideIn {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
+.chat-box.show {
+  display: block;
 }
 
-.chat-box .messages {
-  max-height: 300px;
-  overflow-y: auto;
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
   margin-bottom: 15px;
-  padding-right: 5px;
+  font-size: 1.3rem;
+  color: var(--cor-primaria);
+}
+
+.close-chat-btn {
+  background: none;
+  border: none;
+  color: var(--cor-primaria);
+  font-size: 1.7rem;
+  cursor: pointer;
+}
+
+.messages {
+  max-height: 350px;
+  overflow-y: auto;
+  padding-right: 10px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 15px;
 }
 
+/* Mensagens de Chat */
 .message {
   display: flex;
-  margin-bottom: 15px;
-  align-items: flex-start;
+  margin-bottom: 20px;
   width: 100%;
+  padding: 5px;
 }
 
 .message.bot {
@@ -276,73 +287,86 @@ input[type="submit"]:active {
 }
 
 .message .msg {
-  padding: 12px 16px;
-  border-radius: 12px;
-  font-size: 1rem;
-  line-height: 1.5;
-  max-width: 75%;
+  padding: 14px 20px;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 70%;
+  background-color: var(--cor-branco); /* Fundo branco para mensagens do bot */
+  color: var(--cor-texto); /* Texto preto */
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2); /* Sombra suave para mensagens */
   word-wrap: break-word;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  background-color: var(--cor-bot);
-  color: var(--cor-texto);
 }
 
 .message.user .msg {
-  background-color: #333; /* Cor de fundo preta para a mensagem do usuário */
-  color: var(--cor-branco); /* Cor do texto branco */
-  border: 1px solid #333; /* Borda para a mensagem do usuário */
+  background-color: var(--cor-preto); /* Fundo igual ao fundo do chat */
+  color: var(--cor-texto); /* Texto preto */
+  border: 1px solid var(--cor-preto);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Estilo do campo de entrada de mensagem */
+/* Caixa de Entrada de Texto */
+.chat-input-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .chat-box textarea {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #1c8be6;
-  border-radius: 12px;
-  resize: none;
-  font-size: 1rem;
+  padding: 16px;
+  border: 1px solid #444;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
   color: var(--cor-texto);
-  transition: border-color 0.3s ease;
-  margin-bottom: 10px;
+  background-color: #222;
+  margin-bottom: 15px;
+  resize: none;
   outline: none;
+  transition: border-color 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .chat-box textarea:focus {
-  border-color: var(--cor-primaria);
+  border-color: var(--cor-secundaria);
 }
 
-.chat-box textarea::placeholder {
-  color: #999;
-  font-style: italic;
-}
-
-/* Estilo do botão de envio */
-.chat-box button {
+.send-btn {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   background-color: var(--cor-primaria);
-  color: #fff;
+  color: var(--cor-branco);
   border: none;
-  border-radius: 12px;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  transition: background-color 0.3s ease;
   font-weight: bold;
-  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.chat-box button:hover {
+.send-btn:hover {
   background-color: var(--cor-secundaria);
+  transform: translateY(-5px);
 }
 
-.chat-box button:active {
-  transform: translateY(2px);
+.send-btn:active {
+  transform: translateY(3px);
 }
 
-/* Responsividade */
+/* Animação de Slide do Chat */
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Responsividade para telas menores */
 @media screen and (max-width: 768px) {
   .chat-box {
     width: 90%;
-    max-width: 350px;
+    max-width: 320px;
   }
 
   .chat-btn {
